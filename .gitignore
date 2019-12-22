@@ -1,2 +1,3 @@
 .vendor-new
 vendor
+ts/node_modules
