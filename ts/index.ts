@@ -4,6 +4,8 @@ import Router from 'vue-router';
 import *as Firebase from 'firebase/app';
 const home = require('./compo/home.vue').default;
 const login = require('./compo/login.vue').default;
+const loginEmail = require('./compo/emailLogin.vue').default;
+const emailCreate = require('./compo/emailCreate.vue').default;
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
@@ -19,7 +21,9 @@ Vue.use(Router);
 
 const routes = [
     {path: '/', component:home},
-    {path: '/login', component:login}
+    {path: '/login', component:login},
+    {path: '/login/email', component:loginEmail},
+    {path: '/login/create', component:emailCreate}
 ];
 
 const router:Router = new Router({

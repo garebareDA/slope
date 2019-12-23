@@ -1,34 +1,44 @@
 <template>
-<div class="loginCenter">
+<div class="loginCenter" >
+    <h1 class="title">
+        Slope
+    </h1>
+
+    <h3 class="login">
+        Slopeにログイン
+    </h3>
+
     <div>
         <button class="button googleLogin" v-on:click="googleLogin">
-            <div>Google Login</div>
+            Googleでログイン
         </button>
     </div>
 
     <div>
-        <button class="button googleLogin" v-on:click="githubLogin">
-            <div>GitHub Login</div>
+        <button class="button githubLogin" v-on:click="githubLogin">
+            GitHubでログイン
         </button>
     </div>
 
     <div>
-        <button class="button emailCreate" v-on:click="emailCreate">
-            <div>Email Login</div>
+        <button class="button emailLogin" v-on:click="emailLogin">
+            Eメールでログイン
         </button>
     </div>
 
     <div>
         <button class="button guestLogin" v-on:click="guestLogin">
-            <div>Guest Login</div>
+            ゲストでログイン
         </button>
     </div>
+
 </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import firebase from 'firebase';
+import Vue from 'vue';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import { ErrorHandler } from 'vue-router/types/router';
 
 export default Vue.extend({
@@ -45,20 +55,15 @@ export default Vue.extend({
             providerLogin(provider);
         },
 
-        emailCreate():void{
-            this.$router.push("login/email/create");
-        },
-
         emailLogin():void{
-            this.$router.push("login/email/login");
+            this.$router.push("login/email");
         },
 
         guestLogin():void{
-            firebase.auth().signInAnonymously().catch((err:ErrorHandler) => {
-                if(!err){
-                    this.$router.push("/");
-                }
-                alert(err);
+            firebase.auth().signInAnonymously().then(() => {
+                this.$router.push("/");
+            }).catch((err:ErrorHandler) => {
+                    alert(err);
             });
         }
     }

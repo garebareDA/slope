@@ -7,6 +7,8 @@ import(
 //firebaseのAuth認証を使う
 //サーバー側ではクライアントから送られてきたデータをSQLに
 //アカウントは保持しない
+//firebase adminの追加
+//uidはTokenで取得
 
 func main() {
 	router := gin.Default()

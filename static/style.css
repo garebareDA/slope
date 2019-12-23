@@ -1,0 +1,63 @@
+.loginCenter{
+    text-align: center;
+    height:100vh;
+}
+
+.title{
+    text-align: center;
+    background-color:#13224d;
+    color:#ffffff;
+    height: 5vh;
+    margin-bottom:20vh;
+    padding-top: 3vh;
+    margin-top: 0vh;
+}
+
+.button{
+    margin:10px;
+    width: 50vw;
+    height: 10vh;
+    color:#ffffff;
+    border-style: none;
+    font-size: 160%;
+}
+
+.login{
+    border-bottom: dashed 4px #87CEFA;
+    width:25vw;
+    margin-left: 36vw;
+}
+
+.googleLogin{
+    background-color:#cc3d50;
+
+}
+
+.googleLogin:hover{
+    background-color:#8a2835;
+}
+
+.githubLogin{
+    background-color:#232323;
+}
+
+.githubLogin:hover{
+    background-color:#0f0f0f;
+}
+
+.emailLogin{
+    background-color: #82cfff;
+}
+
+.emailLogin:hover{
+    background-color:#619dc2;
+}
+
+.guestLogin{
+    background-color:#ffd078;
+}
+
+.guestLogin:hover{
+    background-color:#d6ae63;
+}
+/*--------------------------------------------------*/
