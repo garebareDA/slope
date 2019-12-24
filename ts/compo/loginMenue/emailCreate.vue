@@ -1,8 +1,19 @@
 <template>
-    <div>
-        <input type="text" placeholder="Eメール" v-model="email">
-        <input type="text" placeholder="パスワード" v-model="password">
-        <button v-on:click="login">作成</button>
+    <div class="loginCenter">
+        <h1 class="title">Slope</h1>
+        <h3 class="login">アカウントの作成</h3>
+
+        <div>
+            <input type="text" placeholder="Eメール" v-model="email" class="loginText">
+        </div>
+
+        <div>
+            <input type="password" placeholder="パスワード" v-model="password" class="loginText">
+        </div>
+
+        <div>
+            <button v-on:click="create" class="button emailLogin">作成</button>
+        </div>
     </div>
 </template>
 
@@ -14,7 +25,7 @@ import { ErrorHandler } from 'vue-router/types/router';
 
 export default Vue.extend({
     methods:{
-        login():void{
+        create():void{
             const data = this.$data;
             firebase.auth().createUserWithEmailAndPassword(data.email, data.password).then(() =>{
                 this.$router.push("/");

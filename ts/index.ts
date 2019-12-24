@@ -3,9 +3,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import *as Firebase from 'firebase/app';
 const home = require('./compo/home.vue').default;
-const login = require('./compo/login.vue').default;
-const loginEmail = require('./compo/emailLogin.vue').default;
-const emailCreate = require('./compo/emailCreate.vue').default;
+const login = require('./compo/loginMenue/login.vue').default;
+const loginEmail = require('./compo/loginMenue/emailLogin.vue').default;
+const emailCreate = require('./compo/loginMenue/emailCreate.vue').default;
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
