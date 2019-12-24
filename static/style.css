@@ -60,4 +60,10 @@
 .guestLogin:hover{
     background-color:#d6ae63;
 }
+
+.loginText{
+    font-size: 160%;
+    width:50%;
+    text-align: center;
+}
 /*--------------------------------------------------*/

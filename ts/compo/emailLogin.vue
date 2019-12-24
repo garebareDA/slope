@@ -1,9 +1,24 @@
 <template>
-    <div>
-        <input type="text" placeholder="Eメール" v-model="email">
-        <input type="text" placeholder="パスワード" v-model="password">
-        <button v-on:click="login">ログイン</button>
-        <router-link to = "/login/create">アカウントの作成</router-link>
+    <div class="loginCenter">
+
+        <h1 class="title">Slope</h1>
+        <h3 class="login">Eメールでログイン</h3>
+
+        <div>
+            <input type="text" placeholder="Eメール" v-model="email" class="loginText">
+        </div>
+
+        <div>
+            <input type="password" placeholder="パスワード" v-model="password" class="loginText">
+        </div>
+
+        <div>
+            <button v-on:click="login" class="button emailLogin">ログイン</button>
+        </div>
+
+        <div>
+            <router-link to = "/login/create" >アカウントの作成</router-link>
+        </div>
     </div>
 </template>
 
