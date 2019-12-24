@@ -46,13 +46,13 @@ export default Vue.extend({
         googleLogin():void{
             const provider:firebase.auth.GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
             provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-            providerLogin(provider);
+            providerLogin(provider, this);
         },
 
         githubLogin():void{
             const provider:firebase.auth.GithubAuthProvider = new firebase.auth.GithubAuthProvider();
             provider.addScope('repo');
-            providerLogin(provider);
+            providerLogin(provider, this);
         },
 
         emailLogin():void{
@@ -69,8 +69,7 @@ export default Vue.extend({
     }
 })
 
-const _this:any = this;
-function providerLogin(provider:firebase.auth.AuthProvider):void {
+function providerLogin(provider:firebase.auth.AuthProvider, _this:any):void {
     firebase.auth().signInWithPopup(provider).then((result:any) => {
         console.log(result);
         _this.$router.push("/");
