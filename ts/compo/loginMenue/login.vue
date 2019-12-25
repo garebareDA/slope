@@ -1,12 +1,8 @@
 <template>
 <div class="loginCenter" >
-    <h1 class="title">
-        Slope
-    </h1>
+    <h1 class="title">Slope</h1>
 
-    <h3 class="login">
-        Slopeにログイン
-    </h3>
+    <h3 class="login">Slopeにログイン</h3>
 
     <div>
         <button class="button googleLogin" v-on:click="googleLogin">

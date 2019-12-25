@@ -9,7 +9,6 @@
     color:#ffffff;
     height: 5vh;
     margin-bottom:20vh;
-    padding-top: 3vh;
     margin-top: 0vh;
 }
 
@@ -67,3 +66,44 @@
     text-align: center;
 }
 /*--------------------------------------------------*/
+
+.postButton{
+    z-index: 2;
+    position: fixed;
+    font-size:570%;
+    top: 89%;
+    left: 87%;
+    background-color: darkslategray;
+    color:#ffffff;
+}
+
+.modal {
+    position: fixed;
+    top: 0%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    opacity: 0;
+    z-index: -1;
+    text-align: center;
+    background-color:#232323;
+}
+
+.is-open {
+    visibility: visible;
+    opacity: 0.95;
+    z-index: 100;
+}
+
+.textarea{
+    margin-top:10vh;
+    font-size: 200%;
+    width: 80vw;
+    height: 50vh;
+}
+
+.closeButton{
+    font-size: 500%;
+    width:20vh;
+}
