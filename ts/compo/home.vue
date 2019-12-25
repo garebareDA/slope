@@ -35,13 +35,15 @@ export default Vue.extend({
         post(){
             const text:string = this.$data.postText;
             let _this:any = this;
-
+            console.log("click");
             firebase.auth().currentUser!.getIdToken(true).then((idToken:any) => {
 
                 axios.post('/postText',{
                     token:idToken,
                     text:text
                 }).then(() =>{
+                    console.log(idToken);
+                    console.log(text);
                    _this.$data.text = "";
                 }).catch((err:AxiosError) => {
                     alert(err);

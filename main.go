@@ -16,7 +16,7 @@ func main() {
 	router.Static("static", "./static")
 
 	router.GET("/", routes.MainPage)
-	router.POST("/post", )
+	router.POST("/postText", routes.Post)
 
 	router.Run(":8000");
 }
