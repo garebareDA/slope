@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"log"
+	"strings"
 	firebase "firebase.google.com/go"
 	"github.com/gin-gonic/gin"
 	"slope/database"
@@ -13,11 +14,13 @@ type post struct {
 	Token string `json:"token" binding:"required"`
 }
 
+//Post クライアントからのPOST受け取り
 func Post(c *gin.Context) {
 	var posting post
 	c.BindJSON(&posting)
-	ctx := context.Background();
+	ctx := context.Background()
 	text := posting.Text
+	text = strings.Trim(text, " ")
 
 	if text == ""{
 		statusError(c, "text error")
