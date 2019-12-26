@@ -30,8 +30,14 @@ func Post(c *gin.Context) {
 
 	token, err := auth.VerifyIDToken(ctx, posting.Token)
 	if err != nil {
-		log.Fatalf("error verifying ID token: %v\n", err)
+		log.Println(err)
 	}
 
-	log.Println(token)
+	user, err := auth.GetUser(ctx, token.UID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println(user.DisplayName)
+	log.Println(user.ProviderID)
 }
