@@ -3,6 +3,7 @@ package main
 import(
 	"github.com/gin-gonic/gin"
 	"slope/routes"
+	"slope/database"
 )
 
 //firebaseのAuth認証を使う
@@ -10,8 +11,15 @@ import(
 //アカウントは保持しない
 //firebase adminの追加
 //uidはTokenで取得
+//Go module を使う事
 
 func main() {
+
+	db := database.ConnectDB()
+	defer db.Close()
+
+	db.Set("gorm:table_options", "ENGINE = InnoDB CHARSET=utf8mb4",).AutoMigrate(&database.UserPost{})
+
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
 	router.Static("static", "./static")

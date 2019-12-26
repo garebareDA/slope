@@ -3,9 +3,9 @@ package routes
 import (
 	"context"
 	"log"
-
 	firebase "firebase.google.com/go"
 	"github.com/gin-gonic/gin"
+	"slope/database"
 )
 
 type post struct {
@@ -37,7 +37,19 @@ func Post(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 	}
+	db := database.ConnectDB()
+	defer db.Close()
 
-	log.Println(user.DisplayName)
-	log.Println(user.ProviderID)
+	name := user.DisplayName
+	if name == "" {
+		name = "Guest"
+	}
+
+	userPost := database.UserPost{}
+	userPost.UserName = name
+	userPost.UserUID = user.UID
+	userPost.Text = posting.Text
+	userPost.PhotoURL = user.PhotoURL
+
+	db.Create(&userPost)
 }
