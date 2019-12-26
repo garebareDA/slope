@@ -2,6 +2,7 @@ package main
 
 import(
 	"github.com/gin-gonic/gin"
+	"log"
 	"slope/routes"
 	"slope/database"
 )
@@ -15,7 +16,10 @@ import(
 
 func main() {
 
-	db := database.ConnectDB()
+	db, err := database.ConnectDB()
+	if err != nil {
+		log.Println(err)
+	}
 	defer db.Close()
 
 	db.Set("gorm:table_options", "ENGINE = InnoDB CHARSET=utf8mb4",).AutoMigrate(&database.UserPost{})

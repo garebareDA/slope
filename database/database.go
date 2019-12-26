@@ -3,19 +3,20 @@ package database
 import(
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"os"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-const(
+var(
 
 	//Dialect
 	Dialect = "mysql"
 
 	//DBUser ユーザー名
-	DBUser = "user"
+	DBUser = os.Getenv("DBuser")
 
 	//DBPass パスワード
-	DBPass = "pass"
+	DBPass = os.Getenv("DBpass")
 
 	//DBProtocol プロトコル
 	DBProtocol = "tcp(127.0.0.1)"
@@ -28,14 +29,10 @@ const(
 )
 
 //ConnectDB DBにアクセス
-func ConnectDB() *gorm.DB {
+func ConnectDB() (*gorm.DB, error) {
 	connectTemplate := "%s:%s@%s/%s?%s&parseTime=true"
 	connect := fmt.Sprintf(connectTemplate, DBUser, DBPass, DBProtocol, DBName, DBchar,)
 
 	db, err := gorm.Open(Dialect, connect)
-	if err != nil {
-		panic(err)
-	}
-
-	return db
+	return db, err
 }

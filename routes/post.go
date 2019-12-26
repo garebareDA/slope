@@ -16,28 +16,41 @@ type post struct {
 func Post(c *gin.Context) {
 	var posting post
 	c.BindJSON(&posting)
-	ctx := context.Background()
+	ctx := context.Background();
+	text := posting.Text
+
+	if text == ""{
+		statusError(c, "text error")
+	}
 
 	app, err := firebase.NewApp(ctx, nil)
 	if err != nil {
 		log.Println(err)
+		statusError(c, "firebase down")
 	}
 
 	auth, err := app.Auth(ctx)
 	if err != nil {
 		log.Println(err)
+		statusError(c, "firebase down")
 	}
 
 	token, err := auth.VerifyIDToken(ctx, posting.Token)
 	if err != nil {
 		log.Println(err)
+		statusError(c, "token error")
 	}
 
 	user, err := auth.GetUser(ctx, token.UID)
 	if err != nil {
 		log.Println(err)
+		statusError(c, "token error")
 	}
-	db := database.ConnectDB()
+
+	db, err := database.ConnectDB()
+	if err != nil {
+		statusError(c, "database error")
+	}
 	defer db.Close()
 
 	name := user.DisplayName
@@ -48,8 +61,17 @@ func Post(c *gin.Context) {
 	userPost := database.UserPost{}
 	userPost.UserName = name
 	userPost.UserUID = user.UID
-	userPost.Text = posting.Text
+	userPost.Text = text
 	userPost.PhotoURL = user.PhotoURL
 
 	db.Create(&userPost)
+
+	c.JSON(200, gin.H{
+		"status": "posted",
+	})
+}
+
+func statusError(c *gin.Context, errorMessage string){
+	c.JSON(200, gin.H{"error": errorMessage})
+	c.Abort()
 }
