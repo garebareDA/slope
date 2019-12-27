@@ -28,6 +28,8 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 	router.Static("static", "./static")
 	router.GET("/", routes.MainPage)
+	router.GET("/posts")
+
 	router.POST("/postText", routes.Post)
 
 	router.Run(":8000")

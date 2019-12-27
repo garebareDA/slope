@@ -1,94 +1,106 @@
 <template>
-    <div>
-        <h1 class="title">slope</h1>
+  <div>
+    <h1 class="title">slope</h1>
 
-        <button class="postButton" v-on:click="showPost" v-if="login">+</button>
-        <modal name="post"
-            width="90%"
-            height="auto">
-            <div class="postModal">
-                <div>
-                    <button class="closeButton" v-on:click="hidePost">×</button>
-                    <button class="post" v-on:click="post">投稿</button>
-                </div>
-                <textarea class="textarea" v-model="postText"></textarea>
-            </div>
-        </modal>
-
-        <modal name="loginModal"
-            width="90%"
-            height="auto">
-            <div class="modalLogin">
-                <h1>ログインしましょう</h1>
-                <button class="loginButton" v-on:click="loginButton">ログイン</button>
-                <button class="backButton" v-on:click="hideLogin">後で</button>
-            </div>
-        </modal>
-
+    <div class="buttons" v-if="login">
+        <button class="postButton" v-on:click="showPost" >+</button>
+        <button class="settingButton" v-on:click="showPost" >設定</button>
     </div>
+
+    <modal name="post" width="90%" height="auto">
+      <div class="postModal">
+        <div>
+          <button class="closeButton" v-on:click="hidePost">×</button>
+          <button class="post" v-on:click="post" v-bind:disabled="isPush">投稿</button>
+        </div>
+        <textarea class="textarea" v-model="postText" v-bind:disabled="isPush"></textarea>
+      </div>
+    </modal>
+
+    <modal name="loginModal" width="90%" height="auto">
+      <div class="modalLogin">
+        <h1>ログインしましょう</h1>
+        <button class="loginButton" v-on:click="loginButton">ログイン</button>
+        <button class="backButton" v-on:click="hideLogin">後で</button>
+      </div>
+    </modal>
+
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import axios, { AxiosError, AxiosResponse} from 'axios';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import Vue from "vue";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 export default Vue.extend({
-    mounted(){
-        const user:firebase.User | null = firebase.auth().currentUser;
-        if(user){
-            this.$data.login = true;
-        }else{
-            this.$data.login = false;
-            this.$modal.show("loginModal");
-        }
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$data.login = true;
+      } else {
+        this.$data.login = false;
+        this.$modal.show("loginModal");
+      }
+    });
+  },
+
+  methods: {
+    showPost(): void {
+      this.$modal.show("post");
     },
 
-    methods:{
-        showPost():void {
-          this.$modal.show("post");
-        },
+    hidePost(): void {
+      this.$modal.hide("post");
+    },
 
-        hidePost():void {
-          this.$modal.hide("post");
-        },
+    hideLogin(): void {
+      this.$modal.hide("loginModal");
+    },
 
-        hideLogin():void {
-            this.$modal.hide("loginModal");
-        },
-
-        post():void {
-            const text:string = this.$data.postText;
-            let _this:any = this;
-            firebase.auth().currentUser!.getIdToken(true).then((idToken:string) => {
-
-                axios.post('/postText',{
-                    token:idToken,
-                    text:text
-                }).then((res:AxiosResponse) => {
-                    console.log(res);
-                   _this.$data.postText = "";
-                }).catch((err:AxiosError) => {
-                    alert(err);
-                });
-
-            }).catch((err:firebase.auth.Error) => {
-                alert(err);
+    post(): void {
+      this.$data.isPush = true;
+      const text: string = this.$data.postText;
+      let _this: any = this;
+      firebase
+        .auth()
+        .currentUser!.getIdToken(true)
+        .then((idToken: string) => {
+          axios
+            .post("/postText", {
+              token: idToken,
+              text: text
+            })
+            .then((res: AxiosResponse) => {
+              console.log(res);
+              _this.$data.postText = "";
+              _this.$modal.hide("post");
+              _this.$data.isPush = false;
+            })
+            .catch((err: AxiosError) => {
+              alert(err);
+              _this.$data.isPush = false;
             });
-        },
-
-        loginButton():void {
-            this.$router.push("/login");
-        }
+        })
+        .catch((err: firebase.auth.Error) => {
+          alert(err);
+          _this.$data.isPush = false;
+        });
     },
 
-    data(){
-        return{
-            isModalActive: false,
-            postText: "",
-            login:false,
-        }
+    loginButton(): void {
+      this.$router.push("/login");
     }
-})
+  },
+
+  data() {
+    return {
+      isModalActive: false,
+      login: false,
+      postText: "",
+      isPush: false
+    };
+  }
+});
 </script>

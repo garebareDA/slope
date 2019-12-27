@@ -67,22 +67,17 @@
 }
 /*--------------------------------------------------*/
 
-.postButton{
-    z-index: 1;
-    position: fixed;
-    font-size:300%;
-    top: 80%;
-    left: 78%;
-    background-color: #13224d;
-    color:#ffffff;
-    cursor : pointer;
-}
+
 
 .textarea{
     font-size: 180%;
     width: 80vw;
     height: 50vh;
     resize: none;
+}
+
+.textarea:disabled{
+    opacity: 0.5;
 }
 
 .postModal{
@@ -115,6 +110,10 @@
     margin-top: 2%;
 }
 
+.post:disabled{
+    opacity: 0.5;
+}
+
 .loginButton{
     cursor : pointer;
     color:white;
@@ -127,5 +126,27 @@
     color:white;
     background-color: #232323;
     border-style: none;
+}
+
+.settingButton{
+    z-index: 1;
+    font-size:100%;
+    background-color: #13224d;
+    color:#ffffff;
+    cursor : pointer;
+}
+
+.postButton{
+    z-index: 1;
+    font-size:300%;
+    background-color: #13224d;
+    color:#ffffff;
+    cursor : pointer;
+}
+
+.buttons{
+    position: fixed;
+    top: 80%;
+    left: 80%;
 }
 /*-----------------------------------------------*/

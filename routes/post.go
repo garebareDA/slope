@@ -75,6 +75,6 @@ func Post(c *gin.Context) {
 }
 
 func statusError(c *gin.Context, errorMessage string){
-	c.JSON(200, gin.H{"error": errorMessage})
+	c.JSON(500, gin.H{"status": errorMessage})
 	c.Abort()
 }
