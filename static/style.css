@@ -7,7 +7,7 @@
     text-align: center;
     background-color:#13224d;
     color:#ffffff;
-    height: 5vh;
+    height: auto;
     margin-bottom:20vh;
     margin-top: 0vh;
 }
@@ -68,42 +68,64 @@
 /*--------------------------------------------------*/
 
 .postButton{
-    z-index: 2;
+    z-index: 1;
     position: fixed;
-    font-size:570%;
-    top: 89%;
-    left: 87%;
-    background-color: darkslategray;
+    font-size:300%;
+    top: 80%;
+    left: 78%;
+    background-color: #13224d;
     color:#ffffff;
-}
-
-.modal {
-    position: fixed;
-    top: 0%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow-y: auto;
-    opacity: 0;
-    z-index: -1;
-    text-align: center;
-    background-color:#232323;
-}
-
-.is-open {
-    visibility: visible;
-    opacity: 0.95;
-    z-index: 100;
+    cursor : pointer;
 }
 
 .textarea{
-    margin-top:10vh;
-    font-size: 200%;
+    font-size: 180%;
     width: 80vw;
     height: 50vh;
+    resize: none;
+}
+
+.postModal{
+    text-align: center;
+}
+
+.modalLogin{
+    text-align: center;
 }
 
 .closeButton{
-    font-size: 500%;
-    width:20vh;
+    cursor : pointer;
+    color:black;
+    background-color:white;
+    font-size: 160%;
+    border-style: none;
+    margin-right: 35%;
+    margin-bottom: 3%;
 }
+
+.post{
+    white-space: nowrap;
+    cursor: pointer;
+    background-color:#13224d;
+    color:white;
+    border-style: none;
+    font-size: auto;
+    font-size: 120%;
+    margin-left: 30%;
+    margin-top: 2%;
+}
+
+.loginButton{
+    cursor : pointer;
+    color:white;
+    background-color:#13224d;
+    border-style: none;
+}
+
+.backButton{
+    cursor : pointer;
+    color:white;
+    background-color: #232323;
+    border-style: none;
+}
+/*-----------------------------------------------*/

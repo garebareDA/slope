@@ -1,6 +1,7 @@
 'use strict';
 import Vue from 'vue';
 import Router from 'vue-router';
+import VModal from 'vue-js-modal';
 import *as Firebase from 'firebase/app';
 const home = require('./compo/home.vue').default;
 const login = require('./compo/loginMenue/login.vue').default;
@@ -18,6 +19,7 @@ const firebaseConfig = {
 Firebase.initializeApp(firebaseConfig);
 
 Vue.use(Router);
+Vue.use(VModal);
 
 const routes = [
     {path: '/', component:home},
