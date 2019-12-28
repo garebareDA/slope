@@ -4,7 +4,7 @@
 
     <div class="buttons" v-if="login">
         <button class="postButton" v-on:click="showPost" >+</button>
-        <button class="settingButton" v-on:click="showPost" >設定</button>
+        <button class="settingButton" v-on:click="settingButton" >設定</button>
     </div>
 
     <modal name="post" width="90%" height="auto">
@@ -36,14 +36,14 @@ import "firebase/auth";
 
 export default Vue.extend({
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user:firebase.User | null) => {
       if (user) {
         this.$data.login = true;
       } else {
         this.$data.login = false;
         this.$modal.show("loginModal");
       }
-    });
+    })
   },
 
   methods: {
@@ -91,6 +91,9 @@ export default Vue.extend({
 
     loginButton(): void {
       this.$router.push("/login");
+    },
+    settingButton():void {
+      this.$router.push("/setting");
     }
   },
 

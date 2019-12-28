@@ -66,7 +66,7 @@ export default Vue.extend({
 })
 
 function providerLogin(provider:firebase.auth.AuthProvider, _this:any):void {
-    firebase.auth().signInWithPopup(provider).then((result:any) => {
+    firebase.auth().signInWithPopup(provider).then((result:firebase.auth.UserCredential) => {
         console.log(result);
         _this.$router.push("/");
     }).catch((err:ErrorHandler) => {
