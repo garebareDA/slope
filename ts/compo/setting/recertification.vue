@@ -12,7 +12,7 @@
     </div>
 
     <div>
-      <button v-on:click="login" class="button emailLogin">再認証</button>
+      <button v-on:click="recertification" class="button emailLogin">再認証</button>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default Vue.extend({
   created() {
     const _this = this;
     firebase.auth().onAuthStateChanged(function(user) {
-      if (!user) {
+      if (!user || user.providerData[0]!.providerId != "password") {
         _this.$router.push("/");
       }
     });
@@ -45,7 +45,7 @@ export default Vue.extend({
 
       user!.reauthenticateWithCredential(credential).then(() => {
         const params:string = _this.$route.params['change'];
-        _this.$router.push('/setting/' + params);
+        _this.$router.push('/setting/user/' + params);
       }).catch((err:firebase.FirebaseError) => {
         alert(err.message);
       });

@@ -10,20 +10,13 @@
 
         <div>{{name}}</div>
 
-        <div v-if="guest == false && loginEmail == false">
+        <div v-if="guest == false">
           <div>
             <button class="button settingButton" v-on:click="credential('/setting/name')">ユーザー名の変更</button>
           </div>
         </div>
 
-        <div v-if="loginEmail">
-          <div>
-            <button
-              class="button settingButton"
-              v-on:click="credential('/setting/recertification/name')"
-            >ユーザー名の変更</button>
-          </div>
-
+        <div v-if="guest == false && loginEmail==true">
           <div>
             <button
               class="button settingButton"
@@ -39,9 +32,26 @@
           </div>
         </div>
 
+        <div v-if="guest == false && loginEmail==false">
+          <div>
+            <button
+              class="button settingButton"
+              v-on:click="credential('/setting/user/email')"
+            >メールアドレスの追加</button>
+          </div>
+
+          <div>
+            <button
+              class="button settingButton"
+              v-on:click="credential('/setting/user/password')"
+            >パスワードの追加</button>
+          </div>
+        </div>
+
         <div>
           <button class="button logout" v-on:click="logout">ログアウト</button>
         </div>
+
       </div>
     </div>
   </div>
@@ -55,7 +65,7 @@ import "firebase/auth";
 export default Vue.extend({
   created() {
     const _this: any = this;
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user: firebase.User | null) => {
       if (user) {
         if (user.email == null) {
           _this.$data.guest = true;

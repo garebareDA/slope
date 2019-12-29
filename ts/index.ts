@@ -11,6 +11,7 @@ const emailCreate = require('./compo/loginMenue/emailCreate.vue').default;
 const setting = require('./compo/setting/userSetting.vue').default;
 const settingName =require('./compo/setting/settingName.vue').default;
 const settingRecertification = require('./compo/setting/recertification.vue').default;
+const change = require('./compo/setting/change.vue').default;
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
@@ -32,6 +33,7 @@ const routes = [
     {path: '/login/create', component:emailCreate},
     {path:'/setting', component:setting},
     {path:'/setting/name', component:settingName},
+    {path:'/setting/user/:change', component:change},
     {path:'/setting/recertification/:change', component:settingRecertification}
 ];
 
