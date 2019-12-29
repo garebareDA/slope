@@ -9,6 +9,8 @@ const login = require('./compo/loginMenue/login.vue').default;
 const loginEmail = require('./compo/loginMenue/emailLogin.vue').default;
 const emailCreate = require('./compo/loginMenue/emailCreate.vue').default;
 const setting = require('./compo/setting/userSetting.vue').default;
+const settingName =require('./compo/setting/settingName.vue').default;
+const settingRecertification = require('./compo/setting/recertification.vue').default;
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
@@ -28,7 +30,9 @@ const routes = [
     {path: '/login', component:login},
     {path: '/login/email', component:loginEmail},
     {path: '/login/create', component:emailCreate},
-    {path:'/setting', component:setting}
+    {path:'/setting', component:setting},
+    {path:'/setting/name', component:settingName},
+    {path:'/setting/recertification/:change', component:settingRecertification}
 ];
 
 const router:Router = new Router({

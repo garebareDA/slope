@@ -7,13 +7,6 @@ import(
 	"slope/database"
 )
 
-//firebaseのAuth認証を使う
-//サーバー側ではクライアントから送られてきたデータをSQLに
-//アカウントは保持しない
-//firebase adminの追加
-//uidはTokenで取得
-//Go module を使う事
-
 func main() {
 
 	db, err := database.ConnectDB()

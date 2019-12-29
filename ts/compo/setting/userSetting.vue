@@ -10,19 +10,32 @@
 
         <div>{{name}}</div>
 
-        <div v-if="!guest">
+        <div v-if="guest == false && loginEmail == false">
           <div>
-            <button class="button settingButton" v-on:click="credential">ユーザー名の変更</button>
+            <button class="button settingButton" v-on:click="credential('/setting/name')">ユーザー名の変更</button>
+          </div>
+        </div>
+
+        <div v-if="loginEmail">
+          <div>
+            <button
+              class="button settingButton"
+              v-on:click="credential('/setting/recertification/name')"
+            >ユーザー名の変更</button>
           </div>
 
-          <div v-if="loginEmail">
-            <div>
-              <button class="button settingButton" v-on:click="credential">メールアドレスの変更</button>
-            </div>
+          <div>
+            <button
+              class="button settingButton"
+              v-on:click="credential('/setting/recertification/email')"
+            >メールアドレスの変更</button>
+          </div>
 
-            <div>
-              <button class="button settingButton" v-on:click="credential">>パスワードの変更</button>
-            </div>
+          <div>
+            <button
+              class="button settingButton"
+              v-on:click="credential('/setting/recertification/password')"
+            >パスワードの変更</button>
           </div>
         </div>
 
@@ -57,7 +70,8 @@ export default Vue.extend({
         }
 
         _this.$data.provider = user.providerData[0]!.providerId;
-        if(_this.$data.provider == "firebase") {
+        console.log(_this.$data.provider);
+        if (_this.$data.provider == "password") {
           _this.$data.loginEmail = true;
         }
 
@@ -72,18 +86,48 @@ export default Vue.extend({
       firebase.auth().signOut();
     },
 
-    credential(): void {
+    credential(url: string): void {
       const _this = this;
-      const userProvider:String = _this.$data.provider;
+      const userProvider: String = _this.$data.provider;
 
-      if(userProvider === "google.com"){
-        const provider:firebase.auth.AuthProvider = new firebase.auth.GoogleAuthProvider();
-        recertification(provider);
+      if (userProvider === "google.com") {
+        const provider: firebase.auth.AuthProvider = new firebase.auth.GoogleAuthProvider();
+        recertification(provider, url);
       }
 
-      if(userProvider === "github.com"){
-        const provider:firebase.auth.AuthProvider = new firebase.auth.GithubAuthProvider();
-        recertification(provider);
+      if (userProvider === "github.com") {
+        const provider: firebase.auth.AuthProvider = new firebase.auth.GithubAuthProvider();
+        recertification(provider, url);
+      }
+
+      if (userProvider === "password") {
+        _this.$router.push(url);
+      }
+
+      function recertification(
+        provider: firebase.auth.AuthProvider,
+        url: string
+      ) {
+        const user: firebase.User | null = firebase.auth().currentUser;
+
+        firebase
+          .auth()
+          .signInWithPopup(provider)
+          .then((result: firebase.auth.UserCredential) => {
+            const credential: any = result.credential;
+
+            user!
+              .reauthenticateWithCredential(credential)
+              .then(() => {
+                _this.$router.push(url);
+              })
+              .catch((err: firebase.auth.AuthError) => {
+                alert(err.message);
+              });
+          })
+          .catch((err: firebase.auth.AuthError) => {
+            alert(err.message);
+          });
       }
     }
   },
@@ -93,34 +137,11 @@ export default Vue.extend({
       icon: "",
       name: "Guest",
       guest: false,
-      provider: null,
-      loginEmail:false,
+      loginEmail: false,
+      provider: null
     };
   }
 });
 
 //TODO引数に遷移先
-function recertification(provider:firebase.auth.AuthProvider) {
-  const user: firebase.User | null = firebase.auth().currentUser;
-
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result:firebase.auth.UserCredential) => {
-      const credential: any = result.credential;
-
-      user!
-        .reauthenticateWithCredential(credential)
-        .then(() => {
-
-        })
-        .catch((err: firebase.auth.AuthError) => {
-          alert(err.message);
-        });
-    })
-    .catch((err: firebase.auth.AuthError) => {
-      alert(err.message);
-      return;
-    });
-}
 </script>
