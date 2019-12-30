@@ -27,5 +27,5 @@ func postGet(c *gin.Context) {
 	defer db.Close()
 
     posts := []database.UserPost{}
-	db.Where("created_at BETWEEN ? AND ?", 1, 10).Find(&posts)
+	db.Where("created_at BETWEEN ? AND ?", getNumber , getNumber + 9).Find(&posts)
 }
