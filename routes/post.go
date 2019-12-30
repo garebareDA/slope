@@ -22,7 +22,7 @@ func Post(c *gin.Context) {
 	text := posting.Text
 	text = strings.Trim(text, " ")
 
-	if text == ""{
+	if text == "" || len(text) > 500 {
 		statusError(c, "text error")
 	}
 
