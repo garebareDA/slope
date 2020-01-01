@@ -8,7 +8,6 @@ import(
 )
 
 var(
-
 	//Dialect
 	Dialect = "mysql"
 
