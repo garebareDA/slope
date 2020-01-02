@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import VModal from 'vue-js-modal';
+import InfiniteLoading from 'vue-infinite-loading';
 import *as Firebase from 'firebase/app';
 
 const home = require('./compo/home.vue').default;

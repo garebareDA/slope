@@ -7,7 +7,7 @@ import(
 	"slope/database"
 )
 
-func postGet(c *gin.Context) {
+func PostGet(c *gin.Context) {
 	get := c.Query("number")
 
 	log.Println(get)
@@ -17,31 +17,37 @@ func postGet(c *gin.Context) {
 	}
 	defer db.Close()
 
-	lastPosted := database.UserPost{}
 	getNumber, err := strconv.Atoi(get)
 	if err != nil {
 		statusError(c, "number error")
 	}
 
-	firstNum := getNumber
-	lastNum := getNumber + 9
-
-	if getNumber < 1 {
+	if getNumber < 10 {
 		statusError(c, "number error")
 	}
 
+	lastPosted := database.UserPost{}
 	db.Last(&lastPosted)
+
 	lastPostedID := lastPosted.ID
+	firstNum := lastPostedID - getNumber
+	lastNum := lastPostedID - (getNumber - 9)
 
-	if lastPostedID < lastNum {
-		lastNum = lastPosted.ID
+	log.Println(firstNum)
+	log.Println(lastNum)
+
+	if firstNum < 1 {
+		firstNum = 1
 	}
 
-	if lastPostedID < firstNum {
-		firstNum = lastPosted.ID
+	if lastNum < 1 {
+		lastNum = 1
 	}
+
+	log.Println(firstNum)
+	log.Println(lastNum)
 
     posts := []database.UserPost{}
-	db.Where("created_at BETWEEN ? AND ?", firstNum , lastNum).Find(&posts)
+	db.Where("id BETWEEN ? AND ?", firstNum , lastNum).Find(&posts)
 	c.JSON(200, posts)
 }

@@ -7,6 +7,8 @@
         <button class="settingButton" v-on:click="settingButton" >設定</button>
     </div>
 
+
+
     <modal name="post" width="90%" height="auto">
       <div class="postModal">
         <div>
@@ -25,6 +27,7 @@
       </div>
     </modal>
 
+    <infinite-loading @infinite="infiniteGet"></infinite-loading>
   </div>
 </template>
 
@@ -33,6 +36,7 @@ import Vue from "vue";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import InfiniteLoading from 'vue-infinite-loading';
 
 export default Vue.extend({
   mounted() {
@@ -94,7 +98,34 @@ export default Vue.extend({
     },
     settingButton():void {
       this.$router.push("/setting");
+    },
+
+    infiniteGet($state:any): void {
+      const _this: any = this;
+      _this.getNumber += 10;
+      axios.get("/posts", {
+        params: {
+          number:_this.getNumber
+        }
+      }).then((result:AxiosResponse) => {
+        const get:any = result.data
+        get.reverse();
+        _this.$data.list.concat(get);
+        console.log(get);
+        if(result.data.length != 10){
+          $state.complete();
+        }else{
+          $state.loaded();
+        }
+      }).catch((err: AxiosError) => {
+        $state.complete();
+        alert(err.message);
+      });
     }
+  },
+
+  components: {
+    InfiniteLoading,
   },
 
   data() {
@@ -102,7 +133,9 @@ export default Vue.extend({
       isModalActive: false,
       login: false,
       postText: "",
-      isPush: false
+      isPush: false,
+      getNumber:0,
+      list:[]
     };
   }
 });

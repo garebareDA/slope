@@ -21,7 +21,7 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 	router.Static("static", "./static")
 	router.GET("/", routes.MainPage)
-	router.GET("/posts")
+	router.GET("/posts", routes.PostGet)
 
 	router.POST("/postText", routes.Post)
 
