@@ -7,6 +7,7 @@ import(
 	"slope/database"
 )
 
+// PostGet infinite load用の関数
 func PostGet(c *gin.Context) {
 	get := c.Query("number")
 
