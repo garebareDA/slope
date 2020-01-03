@@ -180,3 +180,12 @@
     color:white;
     white-space: nowrap;
 }
+/*--------------------------------------------------*/
+.posts{
+    border-style: solid;
+    border-color: rgb(182, 182, 182);
+    border-width: 1px;
+    width:50vw;
+    height: auto;
+    margin: 0 auto;
+}

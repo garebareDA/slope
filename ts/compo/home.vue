@@ -7,7 +7,15 @@
         <button class="settingButton" v-on:click="settingButton" >設定</button>
     </div>
 
-
+    <div class="posts" v-for="(item, index) in list" :key="index">
+      <div>
+        <div class="user">
+          <img v-bind:src="item.PhotoURL" alt="アイコン">
+          <div>{{item.userName}}</div>
+        </div>
+        <div class="text">{{item.text}}</div>
+      </div>
+    </div>
 
     <modal name="post" width="90%" height="auto">
       <div class="postModal">
@@ -81,6 +89,7 @@ export default Vue.extend({
               _this.$data.postText = "";
               _this.$modal.hide("post");
               _this.$data.isPush = false;
+              _this.$router.go({path: this.$router.currentRoute.path, force: true});
             })
             .catch((err: AxiosError) => {
               alert(err);
@@ -110,8 +119,8 @@ export default Vue.extend({
       }).then((result:AxiosResponse) => {
         const get:any = result.data
         get.reverse();
-        _this.$data.list.concat(get);
-        console.log(get);
+        _this.$data.list.push(...get);
+        console.log(_this.$data.list);
         if(result.data.length != 10){
           $state.complete();
         }else{

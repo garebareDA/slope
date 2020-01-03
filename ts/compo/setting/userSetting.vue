@@ -152,6 +152,4 @@ export default Vue.extend({
     };
   }
 });
-
-//TODO引数に遷移先
 </script>

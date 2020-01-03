@@ -61,11 +61,16 @@ func Post(c *gin.Context) {
 		name = "Guest"
 	}
 
+	photoURL := user.PhotoURL
+	if photoURL == "" {
+		photoURL = "/static/images/guest.png"
+	}
+
 	userPost := database.UserPost{}
 	userPost.UserName = name
 	userPost.UserUID = user.UID
 	userPost.Text = text
-	userPost.PhotoURL = user.PhotoURL
+	userPost.PhotoURL = photoURL
 
 	db.Create(&userPost)
 
