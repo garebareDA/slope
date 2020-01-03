@@ -32,7 +32,7 @@ func PostGet(c *gin.Context) {
 
 	lastPostedID := lastPosted.ID
 	firstNum := lastPostedID - getNumber
-	lastNum := lastPostedID - (getNumber - 9)
+	lastNum := lastPostedID - (getNumber - 10)
 
 	log.Println(firstNum)
 	log.Println(lastNum)

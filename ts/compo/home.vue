@@ -10,10 +10,10 @@
     <div class="posts" v-for="(item, index) in list" :key="index">
       <div>
         <div class="user">
-          <img v-bind:src="item.PhotoURL" alt="アイコン">
-          <div>{{item.userName}}</div>
+          <img class="userIcon" v-bind:src="item.photoURL" alt="アイコン">
+          <p class="userName">{{item.userName}}</p>
         </div>
-        <div class="text">{{item.text}}</div>
+        <p class="text">{{item.text}}</p>
       </div>
     </div>
 

@@ -183,9 +183,33 @@
 /*--------------------------------------------------*/
 .posts{
     border-style: solid;
-    border-color: rgb(182, 182, 182);
+    border-color: rgb(243, 243, 243);
     border-width: 1px;
     width:50vw;
     height: auto;
     margin: 0 auto;
+    cursor : pointer;
+}
+
+.posts:hover{
+    background-color:rgb(246, 246, 246);
+}
+
+.text{
+    text-align: center;
+}
+
+.user{
+    margin-left: 5%;
+}
+
+.userIcon{
+    width: 50px;
+    height: auto;
+    margin-top: 5%;
+    box-shadow: 1px 1px rgb(172, 172, 172);
+}
+
+.userName{
+    margin-top:1%;
 }
