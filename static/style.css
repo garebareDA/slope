@@ -197,6 +197,8 @@
 
 .text{
     text-align: center;
+    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .user{
