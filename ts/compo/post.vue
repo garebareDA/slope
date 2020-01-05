@@ -1,13 +1,14 @@
 <template>
   <div>
     <h1 class="title">slope</h1>
-    <div>
-      <p>
+    <div class="posts" >
+      <div class="user">
         <img class="userIcon" v-bind:src="photoURL" alt="アイコン" />
-      </p>
-      <p>{{userName}}</p>
-      <p>{{text}}</p>
+        <p class="userName">{{userName}}</p>
+      </div>
+      <p class="text">{{text}}</p>
     </div>
+    <hr>
   </div>
 </template>
 
@@ -15,7 +16,7 @@
 import Vue from "vue";
 import axios, { AxiosError, AxiosResponse } from "axios";
 export default Vue.extend({
-  beforeMount(): void {
+  created(): void {
     const _this = this;
     axios
       .get("/posts/post", {
