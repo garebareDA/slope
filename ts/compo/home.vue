@@ -8,13 +8,11 @@
     </div>
 
     <div class="posts" v-for="(item, index) in list" :key="index">
-      <div>
-        <div class="user">
-          <img class="userIcon" v-bind:src="item.photoURL" alt="アイコン">
-          <p class="userName">{{item.userName}}</p>
-        </div>
-        <p class="text">{{item.text}}</p>
+      <div class="user" v-on:click="transition('/post/' + item.ID)">
+        <img class="userIcon" v-bind:src="item.photoURL" alt="アイコン">
+        <p class="userName">{{item.userName}}</p>
       </div>
+      <p class="text">{{item.text}}</p>
     </div>
 
     <modal name="post" width="90%" height="auto">
@@ -71,6 +69,10 @@ export default Vue.extend({
       this.$modal.hide("loginModal");
     },
 
+    transition(url: string): void {
+      this.$router.push(url);
+    },
+
     post(): void {
       this.$data.isPush = true;
       const text: string = this.$data.postText;
@@ -85,19 +87,18 @@ export default Vue.extend({
               text: text
             })
             .then((res: AxiosResponse) => {
-              console.log(res);
               _this.$data.postText = "";
               _this.$modal.hide("post");
               _this.$data.isPush = false;
-              _this.$router.go({path: this.$router.currentRoute.path, force: true});
+              _this.$router.go({path: _this.$router.currentRoute.path, force: true});
             })
             .catch((err: AxiosError) => {
-              alert(err);
+              alert(err.message);
               _this.$data.isPush = false;
             });
         })
         .catch((err: firebase.auth.Error) => {
-          alert(err);
+          alert(err.message);
           _this.$data.isPush = false;
         });
     },

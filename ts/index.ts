@@ -13,6 +13,7 @@ const setting = require('./compo/setting/userSetting.vue').default;
 const settingName =require('./compo/setting/settingName.vue').default;
 const settingRecertification = require('./compo/setting/recertification.vue').default;
 const change = require('./compo/setting/change.vue').default;
+const post = require('./compo/post.vue').default;
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
@@ -29,6 +30,7 @@ Vue.use(VModal);
 
 const routes = [
     {path: '/', component:home},
+    {path:'/post/:id', component:post},
     {path: '/login', component:login},
     {path: '/login/email', component:loginEmail},
     {path: '/login/create', component:emailCreate},
