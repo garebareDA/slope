@@ -8,6 +8,7 @@
       </div>
       <p class="text">{{text}}</p>
     </div>
+    <button>反応</button>
     <hr>
   </div>
 </template>

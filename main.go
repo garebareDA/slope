@@ -16,6 +16,7 @@ func main() {
 	defer db.Close()
 
 	db.Set("gorm:table_options", "ENGINE = InnoDB CHARSET=utf8mb4",).AutoMigrate(&database.UserPost{})
+	db.Set("gorm:table_options", "ENGINE = InnoDB CHARSET=utf8mb4",).AutoMigrate(&database.RepryPost{})
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
@@ -25,6 +26,7 @@ func main() {
 	router.GET("/posts/post", routes.PostGet)
 
 	router.POST("/postText", routes.Post)
+	router.POST("/postText/repry", routes.RepryPost)
 
 	router.Run(":8000")
 }
