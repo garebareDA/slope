@@ -8,14 +8,26 @@
       </div>
       <p class="text">{{text}}</p>
     </div>
-    <button>反応</button>
     <hr>
+    <button v-on:click="showPost">反応</button>
+
+    <modal name="post" width="90%" height="auto">
+      <div class="postModal">
+        <div>
+          <button class="closeButton" v-on:click="hidePost">×</button>
+          <button class="post" v-on:click="post" v-bind:disabled="isPush">投稿</button>
+        </div>
+        <textarea class="textarea" v-model="postText" v-bind:disabled="isPush"></textarea>
+      </div>
+    </modal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 export default Vue.extend({
   created(): void {
     const _this = this;
@@ -37,11 +49,69 @@ export default Vue.extend({
       });
   },
 
+  mounted(): void {
+    firebase.auth().onAuthStateChanged((user:firebase.User | null) => {
+      if (user) {
+        console.log("login");
+      } else {
+        console.log("not login");
+      }
+    })
+  },
+
+  methods: {
+    post(): void {
+      this.$data.isPush = true;
+      const text: string = this.$data.postText;
+      const _this: any = this;
+      firebase
+        .auth()
+        .currentUser!.getIdToken(true)
+        .then((idToken: string) => {
+          axios
+            .post("/postText/repry", {
+              token: idToken,
+              text: text,
+              repryID:_this.$route.params.id,
+            })
+            .then((res: AxiosResponse) => {
+              _this.$data.postText = "";
+              _this.$modal.hide("post");
+              _this.$data.isPush = false;
+              _this.$router.go({path: _this.$router.currentRoute.path, force: true});
+            })
+            .catch((err: AxiosError) => {
+              alert(err.message);
+              _this.$data.isPush = false;
+            });
+        })
+        .catch((err: firebase.auth.Error) => {
+          alert(err.message);
+          _this.$data.isPush = false;
+        });
+    },
+
+    showPost(): void {
+      this.$modal.show("post");
+    },
+
+    hidePost(): void {
+      this.$modal.hide("post");
+    },
+  },
+
   data() {
     return {
       photoURL: "",
       userName: "",
-      text: ""
+      text: "",
+
+      isModalActive: false,
+      login: false,
+      postText: "",
+      isPush: false,
+      getNumber:0,
+      list:[]
     };
   }
 });
