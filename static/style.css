@@ -1,6 +1,5 @@
 .loginCenter{
     text-align: center;
-    height:100vh;
 }
 
 .title{
@@ -19,6 +18,7 @@
     color:#ffffff;
     border-style: none;
     font-size: 160%;
+    cursor : pointer;
 }
 
 .login{
@@ -214,4 +214,14 @@
 
 .userName{
     margin-top:1%;
+}
+/*-----------------------------*/
+.repry{
+    border-style: solid;
+    border-color: rgb(243, 243, 243);
+    border-width: 1px;
+    width:50vw;
+    height: auto;
+    margin: 0 auto;
+    cursor : pointer;
 }

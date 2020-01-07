@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"slope/database"
 	"time"
+	"strconv"
 	"errors"
 )
 
@@ -19,8 +20,8 @@ type post struct {
 
 type repryPost struct {
 	Text  string `json:"text"  binding:"required"`
-	RepryID int `json:"repryID" binding:"required"`
 	Token string `json:"token" binding:"required"`
+	RepryID string `json:"repryID" binding:"required"`
 }
 
 //Post クライアントからのPOST受け取り
@@ -76,11 +77,19 @@ func RepryPost(c *gin.Context) {
 	text := repryed.Text
 	text = strings.Trim(text, " ")
 
+	repryID := repryed.RepryID
+	repryID = strings.Trim(repryID, " ")
+
+	id, err := strconv.Atoi(repryID)
+	if err != nil {
+		statusError(c, "number error")
+	}
+
 	if text == "" || len(text) > 500 {
 		statusError(c, "text error")
 	}
 
-	if repryed.RepryID < 0 {
+	if id < 0 {
 		statusError(c, "id error")
 	}
 
@@ -111,7 +120,7 @@ func RepryPost(c *gin.Context) {
 	repryPost.Text = text
 	repryPost.PhotoURL = photoURL
 	repryPost.CreatedAt = time.Now()
-	repryPost.RepryID = repryed.RepryID
+	repryPost.RepryID = id
 
 	db.Create(&repryPost)
 	c.JSON(200, gin.H{

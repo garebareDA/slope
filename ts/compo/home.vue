@@ -9,7 +9,9 @@
 
     <div class="posts" v-for="(item, index) in list" :key="index">
       <div class="user" v-on:click="transition('/post/' + item.ID)">
-        <img class="userIcon" v-bind:src="item.photoURL" alt="アイコン">
+        <p>
+          <img class="userIcon" v-bind:src="item.photoURL" alt="アイコン">
+        </p>
         <p class="userName">{{item.userName}}</p>
       </div>
       <p class="text">{{item.text}}</p>
