@@ -70,6 +70,7 @@ func Post(c *gin.Context) {
 	})
 }
 
+//RepryPost リプライの受け取り
 func RepryPost(c *gin.Context) {
 	var repryed repryPost
 	c.BindJSON(&repryed)

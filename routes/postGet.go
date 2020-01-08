@@ -5,7 +5,7 @@ import(
 	"slope/database"
 )
 
-//postGet 一つのpost
+//PostGet 一つのpost
 func PostGet(c *gin.Context) {
 	get := c.Query("number")
 	db, err := database.ConnectDB()

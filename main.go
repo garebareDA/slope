@@ -24,6 +24,7 @@ func main() {
 	router.GET("/", routes.MainPage)
 	router.GET("/posts", routes.PostInfiniteGet)
 	router.GET("/posts/post", routes.PostGet)
+	router.GET("/posts/reprys", routes.RepryInfiniteGet)
 
 	router.POST("/postText", routes.Post)
 	router.POST("/postText/repry", routes.RepryPost)
