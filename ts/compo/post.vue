@@ -24,7 +24,10 @@
       </div>
       <p class="text">{{item.text}}</p>
     </div>
-    <infinite-loading @infinite="infiniteGet"></infinite-loading>
+    <infinite-loading @infinite="infiniteGet">
+      <div slot="no-more"></div>
+      <div slot="no-results"></div>
+    </infinite-loading>
 
     <modal name="post" width="90%" height="auto">
       <div class="postModal">

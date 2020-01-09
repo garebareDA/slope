@@ -35,7 +35,10 @@
       </div>
     </modal>
 
-    <infinite-loading @infinite="infiniteGet"></infinite-loading>
+    <infinite-loading @infinite="infiniteGet">
+      <div slot="no-more"></div>
+      <div slot="no-results"></div>
+    </infinite-loading>
   </div>
 </template>
 
