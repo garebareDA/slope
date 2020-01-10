@@ -1,3 +1,9 @@
+
+body {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .loginCenter{
     text-align: center;
 }
@@ -64,6 +70,23 @@
     font-size: 160%;
     width:50%;
     text-align: center;
+}
+
+@media screen and (min-width: 750px){
+    .title{
+        margin-bottom:20vh;
+    }
+
+    .button{
+        width:80vw;
+        font-size: 200%;
+    }
+
+    .login{
+        font-size:300%;
+        width:50vw;
+        margin-left: 25vw;
+    }
 }
 /*--------------------------------------------------*/
 .textarea{
@@ -146,6 +169,24 @@
     top: 80%;
     left: 80%;
 }
+
+@media screen and (min-width: 750px){
+    .post{
+        font-size: 300%;
+    }
+
+    .closeButton{
+        font-size: 300%;
+    }
+
+    .postButton{
+        font-size:900%;
+    }
+
+    .settingButton{
+        font-size:400%;
+    }
+}
 /*-----------------------------------------------*/
 .settingTitle{
     text-align: center;
@@ -215,6 +256,24 @@
 .userName{
     margin-top:1%;
 }
+
+@media screen and (min-width: 750px){
+    .posts{
+        width:100vw;
+    }
+
+    .text{
+        font-size:500%;
+    }
+
+    .userIcon{
+        width: 200px;
+    }
+
+    .userName{
+        font-size:300%;
+    }
+}
 /*-----------------------------*/
 .repry{
     border-style: solid;
@@ -224,4 +283,10 @@
     height: auto;
     margin: 0 auto;
     cursor : pointer;
+}
+
+@media screen and (min-width: 750px){
+    .repry{
+        width:90vw;
+    }
 }
