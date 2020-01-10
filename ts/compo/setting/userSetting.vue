@@ -8,7 +8,7 @@
           <img class="icon" v-bind:src="icon" />
         </div>
 
-        <div>{{name}}</div>
+        <div class="count">{{name}}</div>
 
         <div v-if="guest == false">
           <div>

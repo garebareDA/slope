@@ -24,7 +24,7 @@
           <button class="post" v-on:click="post" v-bind:disabled="isPush">投稿</button>
         </div>
           <textarea class="textarea" v-model="postText" v-bind:disabled="isPush" maxlength="500"></textarea>
-          <div>{{postText.length}}/500</div>
+          <div class="count">{{postText.length}}/500</div>
       </div>
     </modal>
 
@@ -97,6 +97,7 @@ export default Vue.extend({
               _this.$modal.hide("post");
               _this.$data.isPush = false;
               _this.$router.go({path: _this.$router.currentRoute.path, force: true});
+              location.reload(true);
             })
             .catch((err: AxiosError) => {
               alert(err.message);
