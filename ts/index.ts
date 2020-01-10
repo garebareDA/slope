@@ -13,6 +13,7 @@ const settingName =require('./compo/setting/settingName.vue').default;
 const settingRecertification = require('./compo/setting/recertification.vue').default;
 const change = require('./compo/setting/change.vue').default;
 const post = require('./compo/post.vue').default;
+const notFound = require('./compo/notFound.vue').default;
 
 const firebaseConfig:Object = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
@@ -36,7 +37,8 @@ const routes = [
     {path:'/setting', component:setting},
     {path:'/setting/name', component:settingName},
     {path:'/setting/user/:change', component:change},
-    {path:'/setting/recertification/:change', component:settingRecertification}
+    {path:'/setting/recertification/:change', component:settingRecertification},
+    {path:'*', component:notFound}
 ];
 
 const router:Router = new Router({

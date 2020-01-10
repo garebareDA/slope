@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>slope</title>
-    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div id="app">
         <router-view></router-view>
     </div>
 <script src="/static/index.js"></script>
+1
+<script type="text/javascript">
+
+if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
+    document.write('<link rel="stylesheet" type="text/css" href=/static/style.css>');
+    document.write('<link rel="stylesheet" type="text/css" href=/static/sp.css>');
+}else{
+    document.write('<link rel="stylesheet" type="text/css" href=/static/style.css>');
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+ .title{
+    font-size:400%;
+}
+.button{
+    width:80vw;
+    font-size: 200%;
+}
+.login{
+    font-size:300%;
+    width:50vw;
+    margin-left: 25vw;
+}
+.count{
+    font-size:400%;
+}
+.post{
+    font-size: 200%;
+}
+.closeButton{
+    font-size: 280%;
+}
+.postButton{
+    font-size:900%;
+}
+.settingButton{
+    font-size:400%;
+}
+.buttons{
+    left: 60%;
+}
+.loginButton{
+    font-size: 400%;
+}
+.backButton{
+    font-size: 400%;
+}
+.posts{
+    width:100vw;
+}
+.text{
+    font-size:400%;
+}
+.userIcon{
+    width: 200px;
+}
+.userName{
+    font-size:300%;
+}
+.repry{
+    width:90vw;
+}

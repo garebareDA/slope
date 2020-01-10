@@ -72,27 +72,7 @@ body {
     text-align: center;
 }
 
-@media screen and (min-width: 750px){
-    .title{
-        font-size:400%;
-    }
-
-    .button{
-        width:80vw;
-        font-size: 200%;
-    }
-
-    .login{
-        font-size:300%;
-        width:50vw;
-        margin-left: 25vw;
-    }
-
-    .count{
-        font-size:400%;
-    }
-}
-/*--------------------------------------------------*/
+/*------------------------------------------------*/
 .textarea{
     font-size: 180%;
     width: 80vw;
@@ -174,35 +154,6 @@ body {
     left: 80%;
 }
 
-@media screen and (min-width: 750px){
-    .post{
-        font-size: 200%;
-    }
-
-    .closeButton{
-        font-size: 280%;
-    }
-
-    .postButton{
-        font-size:900%;
-    }
-
-    .settingButton{
-        font-size:400%;
-    }
-
-    .buttons{
-        left: 60%;
-    }
-
-    .loginButton{
-        font-size: 400%;
-    }
-
-    .backButton{
-        font-size:400%;
-    }
-}
 /*-----------------------------------------------*/
 .settingTitle{
     text-align: center;
@@ -272,24 +223,6 @@ body {
 .userName{
     margin-top:1%;
 }
-
-@media screen and (min-width: 750px){
-    .posts{
-        width:100vw;
-    }
-
-    .text{
-        font-size:500%;
-    }
-
-    .userIcon{
-        width: 200px;
-    }
-
-    .userName{
-        font-size:300%;
-    }
-}
 /*-----------------------------*/
 .repry{
     border-style: solid;
@@ -299,10 +232,4 @@ body {
     height: auto;
     margin: 0 auto;
     cursor : pointer;
-}
-
-@media screen and (min-width: 750px){
-    .repry{
-        width:90vw;
-    }
 }
