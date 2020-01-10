@@ -56,12 +56,16 @@ func Post(c *gin.Context) {
 		photoURL = "/static/images/guest.png"
 	}
 
+	now := time.Now()
+	nowUTC := now.UTC()
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
+	nowJST := nowUTC.In(jst)
+
 	userPost := database.UserPost{}
 	userPost.UserName = name
-	userPost.UserUID = user.UID
 	userPost.Text = text
 	userPost.PhotoURL = photoURL
-	userPost.CreatedAt = time.Now()
+	userPost.CreatedAt = nowJST
 
 	db.Create(&userPost)
 
@@ -115,12 +119,16 @@ func RepryPost(c *gin.Context) {
 		photoURL = "/static/images/guest.png"
 	}
 
+	now := time.Now()
+	nowUTC := now.UTC()
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
+	nowJST := nowUTC.In(jst)
+
 	repryPost := database.RepryPost{}
 	repryPost.UserName = name
-	repryPost.UserUID = user.UID
 	repryPost.Text = text
 	repryPost.PhotoURL = photoURL
-	repryPost.CreatedAt = time.Now()
+	repryPost.CreatedAt = nowJST
 	repryPost.RepryID = id
 
 	db.Create(&repryPost)

@@ -2,7 +2,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import VModal from 'vue-js-modal';
-import InfiniteLoading from 'vue-infinite-loading';
 import *as Firebase from 'firebase/app';
 
 const home = require('./compo/home.vue').default;
@@ -15,7 +14,7 @@ const settingRecertification = require('./compo/setting/recertification.vue').de
 const change = require('./compo/setting/change.vue').default;
 const post = require('./compo/post.vue').default;
 
-const firebaseConfig = {
+const firebaseConfig:Object = {
     apiKey: "AIzaSyAyvxB_NeY-vUxBXoxP8IZQBQG0FllUfOI",
     authDomain: "slope-f3cda.firebaseapp.com",
     projectId: "slope-f3cda",

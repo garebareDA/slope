@@ -9,7 +9,7 @@ module.exports = {
     filename:'index.js'
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: [ '.ts', '.js' ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }
@@ -25,7 +25,7 @@ module.exports = {
             },
           },
 
-          { test: /\.vue$/, 
+          { test: /\.vue$/,
             loader: 'vue-loader' },
 
           {
