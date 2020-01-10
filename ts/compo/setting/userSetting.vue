@@ -69,6 +69,8 @@ export default Vue.extend({
       if (user) {
         if (user.email == null) {
           _this.$data.guest = true;
+        }else{
+           _this.$data.provider = user.providerData[0]!.providerId;
         }
 
         if (user.displayName != null) {
@@ -79,7 +81,6 @@ export default Vue.extend({
           _this.$data.icon = user.photoURL;
         }
 
-        _this.$data.provider = user.providerData[0]!.providerId;
         console.log(_this.$data.provider);
         if (_this.$data.provider == "password") {
           _this.$data.loginEmail = true;
@@ -144,7 +145,7 @@ export default Vue.extend({
 
   data() {
     return {
-      icon: "",
+      icon: "/static/images/guest.png",
       name: "Guest",
       guest: false,
       loginEmail: false,

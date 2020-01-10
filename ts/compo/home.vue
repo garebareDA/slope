@@ -23,7 +23,8 @@
           <button class="closeButton" v-on:click="hidePost">×</button>
           <button class="post" v-on:click="post" v-bind:disabled="isPush">投稿</button>
         </div>
-        <textarea class="textarea" v-model="postText" v-bind:disabled="isPush"></textarea>
+          <textarea class="textarea" v-model="postText" v-bind:disabled="isPush" maxlength="500"></textarea>
+          <div>{{postText.length}}/500</div>
       </div>
     </modal>
 
