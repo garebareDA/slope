@@ -151,7 +151,7 @@ export default Vue.extend({
       login: false,
       postText: "",
       isPush: false,
-      getNumber:1,
+      getNumber:0,
       list:[]
     };
   }
