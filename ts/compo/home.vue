@@ -129,7 +129,7 @@ export default Vue.extend({
         get.reverse();
         _this.$data.list.push(...get);
         console.log(_this.$data.list);
-        if(result.data.length != 10){
+        if(result.data.length < 9){
           $state.complete();
         }else{
           $state.loaded();
@@ -151,7 +151,7 @@ export default Vue.extend({
       login: false,
       postText: "",
       isPush: false,
-      getNumber:0,
+      getNumber:1,
       list:[]
     };
   }
