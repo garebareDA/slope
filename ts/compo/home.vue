@@ -4,7 +4,7 @@
 
     <div class="buttons" v-if="login">
         <button class="postButton" v-on:click="showPost" >+</button>
-        <button class="settingButton" v-on:click="settingButton" >設定</button>
+        <button class="settingButton" v-on:click="transition('/setting')" >設定</button>
     </div>
 
     <div class="posts" v-for="(item, index) in list" :key="index">
@@ -20,7 +20,7 @@
     <modal name="post" width="90%" height="auto">
       <div class="postModal">
         <div>
-          <button class="closeButton" v-on:click="hidePost">×</button>
+          <button class="closeButton" v-on:click="hideModal('post')">×</button>
           <button class="post" v-on:click="post" v-bind:disabled="isPush">投稿</button>
         </div>
           <textarea class="textarea" v-model="postText" v-bind:disabled="isPush" maxlength="500"></textarea>
@@ -31,8 +31,8 @@
     <modal name="loginModal" width="90%" height="auto">
       <div class="modalLogin">
         <h1>ログインしましょう</h1>
-        <button class="loginButton" v-on:click="loginButton">ログイン</button>
-        <button class="backButton" v-on:click="hideLogin">後で</button>
+        <button class="loginButton" v-on:click="transition('/login')">ログイン</button>
+        <button class="backButton" v-on:click="hideModal('loginModal')">後で</button>
       </div>
     </modal>
 
@@ -49,6 +49,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import InfiniteLoading from 'vue-infinite-loading';
+import ajax from "../src/ajax.ts";
 
 export default Vue.extend({
   mounted() {
@@ -67,12 +68,8 @@ export default Vue.extend({
       this.$modal.show("post");
     },
 
-    hidePost(): void {
-      this.$modal.hide("post");
-    },
-
-    hideLogin(): void {
-      this.$modal.hide("loginModal");
+    hideModal(hide:string): void {
+      this.$modal.hide(hide);
     },
 
     transition(url: string): void {
@@ -87,22 +84,13 @@ export default Vue.extend({
         .auth()
         .currentUser!.getIdToken(true)
         .then((idToken: string) => {
-          axios
-            .post("/postText", {
-              token: idToken,
-              text: text
-            })
-            .then((res: AxiosResponse) => {
-              _this.$data.postText = "";
-              _this.$modal.hide("post");
-              _this.$data.isPush = false;
-              _this.$router.go({path: _this.$router.currentRoute.path, force: true});
-              location.reload(true);
-            })
-            .catch((err: AxiosError) => {
-              alert(err.message);
-              _this.$data.isPush = false;
-            });
+          const url:string = "/postText";
+          const params:object = {
+            token: idToken,
+            text: text
+          };
+
+          ajax.post(url, params, _this);
         })
         .catch((err: firebase.auth.Error) => {
           alert(err.message);
@@ -110,34 +98,17 @@ export default Vue.extend({
         });
     },
 
-    loginButton(): void {
-      this.$router.push("/login");
-    },
-    settingButton():void {
-      this.$router.push("/setting");
-    },
-
     infiniteGet($state:any): void {
       const _this: any = this;
       _this.getNumber += 10;
-      axios.get("/posts", {
+      const url: string = "/posts";
+      const params:object = {
         params: {
           number:_this.getNumber
         }
-      }).then((result:AxiosResponse) => {
-        const get:any = result.data
-        get.reverse();
-        _this.$data.list.push(...get);
-        console.log(_this.$data.list);
-        if(result.data.length < 9){
-          $state.complete();
-        }else{
-          $state.loaded();
-        }
-      }).catch((err: AxiosError) => {
-        $state.complete();
-        alert(err.message);
-      });
+      };
+
+      ajax.get($state, url, _this, params);
     }
   },
 
