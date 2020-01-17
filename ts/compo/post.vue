@@ -47,7 +47,8 @@ import Vue from "vue";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import InfiniteLoading from "vue-infinite-loading";
+import InfiniteLoading, {StateChanger} from "vue-infinite-loading";
+import ajax from "../src/ajax.ts";
 
 export default Vue.extend({
   created(): void {
@@ -59,7 +60,6 @@ export default Vue.extend({
         }
       })
       .then((result: AxiosResponse) => {
-        console.log(result.data);
         const data = result.data;
         _this.$data.photoURL = data.photoURL;
         _this.$data.userName = data.userName;
@@ -90,27 +90,14 @@ export default Vue.extend({
         .auth()
         .currentUser!.getIdToken(true)
         .then((idToken: string) => {
-          axios
-            .post("/postText/repry", {
-              token: idToken,
-              text: text,
-              repryID: _this.$route.params.id
-            })
-            .then((res: AxiosResponse) => {
-              _this.$data.postText = "";
-              _this.$modal.hide("post");
-              _this.$data.isPush = false;
-              _this.$data.list = [];
-              _this.$router.go({
-                path: _this.$router.currentRoute.path,
-                force: true
-              });
-              location.reload(true);
-            })
-            .catch((err: AxiosError) => {
-              alert(err.message);
-              _this.$data.isPush = false;
-            });
+          const url:string = "/postText/repry";
+          const params:object = {
+            token: idToken,
+            text: text,
+            repryID: _this.$route.params.id
+          };
+
+          ajax.post(url, params, _this);
         })
         .catch((err: firebase.auth.Error) => {
           alert(err.message);
@@ -118,31 +105,18 @@ export default Vue.extend({
         });
     },
 
-    infiniteGet($state: any): void {
+    infiniteGet($state: StateChanger): void {
       const _this: any = this;
+      const url: string = "/posts/reprys";
       _this.getNumber += 10;
-      axios
-        .get("/posts/reprys", {
-          params: {
-            number: _this.getNumber,
-            repry: _this.$route.params.id
-          }
-        })
-        .then((result: AxiosResponse) => {
-          const get: any = result.data;
-          get.reverse();
-          _this.$data.list.push(...get);
-          console.log(_this.$data.list);
-          if (result.data.length < 9) {
-            $state.complete();
-          } else {
-            $state.loaded();
-          }
-        })
-        .catch((err: AxiosError) => {
-          $state.complete();
-          alert(err.message);
-        });
+      const params:object = {
+        params: {
+          number: _this.getNumber,
+          repry: _this.$route.params.id
+        }
+      };
+
+      ajax.get($state, url, _this, params);
     },
 
     showPost(): void {
